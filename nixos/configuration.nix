@@ -42,6 +42,7 @@
     (burpsuite.override {proEdition = true;})
     discord
     firefox
+    ghidra
     kitty
     pavucontrol
     spotify
@@ -68,15 +69,22 @@
     slurp
 
     # CLI Tools
+    dig
     feh
     gnupg
     htop
+    jadx
     jq
     libqalculate
     neovim
+    openssl
     ripgrep
+    sshuttle
+    tldr
+    unixtools.xxd
     unzip
     wget
+    wireguard-tools
     zip
 
     # Development tools
@@ -92,9 +100,7 @@
     nixd
     python3Full
     rustup
-    sshuttle
     stylua
-    tldr
     uv
   ];
 

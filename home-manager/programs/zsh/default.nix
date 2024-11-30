@@ -30,7 +30,6 @@
       cat = "bat";
       catc = "bat -pp";
       rg = "rg --colors=match:fg:blue";
-      history = "history -f";
       hsts = "history | rg $1";
       md = "mkdir";
       tml = "tmux ls";

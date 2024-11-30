@@ -11,7 +11,6 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     catppuccin.url = "github:catppuccin/nix";
-    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
   };
 
   outputs = {
@@ -21,7 +20,6 @@
     hyprland,
     catppuccin,
     nixos-hardware,
-    apple-fonts,
     hyprpolkitagent,
   } @ inputs: let
     system = "x86_64-linux";
