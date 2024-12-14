@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }: let
@@ -135,8 +134,8 @@ in {
       misc {
         force_default_wallpaper = 0
         disable_hyprland_logo = true
-       disable_splash_rendering = true
-       mouse_move_enables_dpms = true
+        disable_splash_rendering = true
+        mouse_move_enables_dpms = true
       }
 
       binds {
@@ -147,8 +146,8 @@ in {
       input {
           kb_layout = us,is
           kb_options = caps:swapescape,grp:alt_space_toggle
-         repeat_delay = 180
-         repeat_rate = 70
+          repeat_delay = 180
+          repeat_rate = 70
           follow_mouse = 1
           sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 

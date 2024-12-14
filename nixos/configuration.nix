@@ -71,6 +71,7 @@
     # CLI Tools
     dig
     feh
+    file
     gnupg
     htop
     jadx
