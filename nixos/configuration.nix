@@ -45,6 +45,7 @@
     ghidra
     kitty
     pavucontrol
+    slack
     spotify
     xfce.thunar
 
