@@ -5,9 +5,6 @@
 }: {
   programs.waybar = {
     enable = true;
-
-    catppuccin.enable = true;
-
     settings = [
       {
         position = "top";
@@ -76,7 +73,7 @@
     style = ''
       * {
           font-family: "JetBrainsMono Nerd Font";
-          font-size: 16px;
+          font-size: 12px;
           min-height: 0;
           font-weight: bold;
       }

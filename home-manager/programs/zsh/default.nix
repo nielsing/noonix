@@ -21,7 +21,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting = {
       enable = true;
-      catppuccin.enable = true;
     };
 
     shellAliases = {

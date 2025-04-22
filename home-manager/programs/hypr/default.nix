@@ -50,10 +50,10 @@
 in {
   wayland.windowManager.hyprland = {
     enable = true;
-    catppuccin.enable = true;
     extraConfig = ''
       # Default monitor
-      monitor=,2560x1440,0x0,1
+      monitor = eDP-1,1920x1200,0x0,1
+      monitor = DP-9,2560x1440,1920x0,1
 
       # Default programs
       $terminal = kitty
@@ -69,8 +69,8 @@ in {
       # Cursor customization
       #exec-once = hyprctl setcursor "Catppuccin-Macchiato-Blue" 24
       exec = dconf write /org/gnome/desktop/interface/cursor-theme "'Catppuccin-Macchiato-Blue'"
-      env = HYPRCURSOR_SIZE,24
-      env = XCURSOR_SIZE,24
+      env = HYPRCURSOR_SIZE,20
+      env = XCURSOR_SIZE,20
       env = XCURSOR_THEME,Catppuccin-Macchiato-Blue
 
       # Look & feel
@@ -99,10 +99,12 @@ in {
         active_opacity = 1.0
         inactive_opacity = 1.0
 
-        drop_shadow = true
-        shadow_range = 4
-        shadow_render_power = 3
-        col.shadow = rgba(1a1a1aee)
+	shadow {
+	  enabled = true
+          range = 4
+          render_power = 3
+          color = rgba(1a1a1aee)
+	}
       }
 
       # https://wiki.hyprland.org/Configuring/Variables/#animations
@@ -160,18 +162,11 @@ in {
       # https://wiki.hyprland.org/Configuring/Variables/#gestures
       gestures {
         workspace_swipe = true
-       workspace_swipe_fingers = 3
-      }
-
-      # Example per-device config
-      # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
-      device {
-        name = epic-mouse-v1
-        sensitivity = -0.5
+        workspace_swipe_fingers = 3
       }
 
       # See https://wiki.hyprland.org/Configuring/Keywords/
-      $mainMod = SUPER # Sets "Windows" key as main modifier
+      $mainMod = SUPER
 
       # See https://wiki.hyprland.org/Configuring/Binds/ for more
       ## Common actions

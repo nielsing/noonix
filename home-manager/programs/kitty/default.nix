@@ -7,9 +7,8 @@
     enable = true;
     font = {
       name = "JetBrainsMono Nerd Font";
-      size = 12;
+      size = 11;
     };
     shellIntegration.enableZshIntegration = true;
-    catppuccin.enable = true;
   };
 }

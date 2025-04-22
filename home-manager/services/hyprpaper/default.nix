@@ -6,8 +6,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["~/pics/catppuccin-smile.png"];
-      wallpaper = [", ~/pics/catppuccin-smile.png"];
+      preload = ["~/pics/mandelbrot.png"];
+      wallpaper = [", ~/pics/mandelbrot.png"];
     };
   };
 }

@@ -37,12 +37,12 @@
         modules = [
           ./nixos/configuration.nix
           catppuccin.nixosModules.catppuccin
-          nixos-hardware.nixosModules.lenovo-thinkpad-t480s # CHANGEME: check https://github.com/NixOS/nixos-hardware
+          nixos-hardware.nixosModules.lenovo-thinkpad-t14s # CHANGEME: check https://github.com/NixOS/nixos-hardware
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.nielsing = {imports = [./home-manager/home.nix catppuccin.homeManagerModules.catppuccin];};
+            home-manager.users.nielsing = {imports = [./home-manager/home.nix catppuccin.homeModules.catppuccin];};
             home-manager.extraSpecialArgs = {inherit inputs;};
           }
         ];

@@ -23,7 +23,7 @@
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices."luks-af2b6f74-5926-4b06-a981-a8305cab2f41".device = "/dev/disk/by-uuid/af2b6f74-5926-4b06-a981-a8305cab2f41";
+  boot.initrd.luks.devices."luks-b09fb35e-5c8a-423b-a855-76f0898d1190".device = "/dev/disk/by-uuid/b09fb35e-5c8a-423b-a855-76f0898d1190";
 
   # Configure keymap in X11, I don't think this is needed
   services.xserver.xkb = {
@@ -111,5 +111,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 }
