@@ -196,8 +196,8 @@ in {
       bind = , XF86AudioMute, exec, pamixer -t
 
       ## Brightness
-      binde = , XF86MonBrightnessUp, exec, brightchessctl set 5%+
-      binde = , XF86MonBrightnessDown, exec, brightchessctl set 5%-
+      binde = , XF86MonBrightnessUp, exec, brightnessctl set 5%+
+      binde = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
 
       ## Print screen
       bind = , PRINT, exec, hyprshot -z -m region --clipboard-only

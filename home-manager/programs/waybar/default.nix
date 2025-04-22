@@ -20,10 +20,10 @@
         ];
 
         "network" = {
-          "format-wifi" = "<span size='13000' foreground='#8aadf4'>  </span>{essid}";
-          "format-ethernet" = "<span size='13000' foreground='#8aadf4'>󰤭  </span> Disconnected";
+          "format-wifi" = "<span size='11000' foreground='#8aadf4'>  </span>{essid}";
+          "format-ethernet" = "<span size='11000' foreground='#8aadf4'>󰤭  </span> Disconnected";
           "format-linked" = "{ifname} (No IP) ";
-          "format-disconnected" = "<span size='13000' foreground='#8aadf4'>  </span>Disconnected";
+          "format-disconnected" = "<span size='11000' foreground='#8aadf4'>  </span>Disconnected";
           "tooltip-format-wifi" = "Signal Strenght: {signalStrength}%";
         };
 
@@ -32,13 +32,13 @@
             "warning" = 25;
             "critical" = 15;
           };
-          "format" = "<span size='13000' foreground='#a6da95'>{icon} </span> {capacity}%";
-          "format-warning" = "<span size='13000' foreground='#eed49f'>{icon} </span> {capacity}%";
-          "format-critical" = "<span size='13000' foreground='#ed8796'>{icon} </span> {capacity}%";
-          "format-charging" = "<span size='13000' foreground='#a6da95'> </span>{capacity}%";
-          "format-plugged" = "<span size='13000' foreground='#a6da95'> </span>{capacity}%";
-          "format-alt" = "<span size='13000' foreground='#a6da95'>{icon} </span> {time}";
-          "format-full" = "<span size='13000' foreground='#a6da95'> </span>{capacity}%";
+          "format" = "<span size='11000' foreground='#a6da95'>{icon} </span> {capacity}%";
+          "format-warning" = "<span size='11000' foreground='#eed49f'>{icon} </span> {capacity}%";
+          "format-critical" = "<span size='11000' foreground='#ed8796'>{icon} </span> {capacity}%";
+          "format-charging" = "<span size='11000' foreground='#a6da95'> </span>{capacity}%";
+          "format-plugged" = "<span size='11000' foreground='#a6da95'> </span>{capacity}%";
+          "format-alt" = "<span size='11000' foreground='#a6da95'>{icon} </span> {time}";
+          "format-full" = "<span size='11000' foreground='#a6da95'> </span>{capacity}%";
           "format-icons" = ["" "" "" "" ""];
           "tooltip-format" = "{time}";
         };
@@ -64,7 +64,7 @@
         };
 
         "tray" = {
-          "icon-size" = 21;
+          "icon-size" = 19;
           "spacing" = 5;
         };
       }

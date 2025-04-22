@@ -48,7 +48,7 @@
       }
 
       obs() {
-        cd ~/src/vaults && nvim knowitall/index.md && cd -
+        cd ~/docs/vaults && nvim knowitall/index.md && cd -
       }
     '';
 

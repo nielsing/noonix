@@ -103,6 +103,7 @@
     python3Full
     rustup
     stylua
+    terraform-ls
     uv
   ];
 
