@@ -55,6 +55,7 @@
     networkmanagerapplet
     pamixer
     pinentry-qt
+    poppler-utils
 
     ## (Hypr|Way)land basics
     inputs.hyprpolkitagent.packages."${pkgs.system}".hyprpolkitagent
