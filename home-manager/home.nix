@@ -17,6 +17,7 @@
     ./programs
     ./services
     ./qt.nix
+    ./xdg.nix
   ];
 
   home.sessionVariables = {

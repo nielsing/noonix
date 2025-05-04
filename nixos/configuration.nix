@@ -14,7 +14,6 @@
     ./nix.nix
     ./timezone.nix
     ./users.nix
-    ./xdg.nix
 
     # No touchy
     ./hardware-configuration.nix
