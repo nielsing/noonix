@@ -50,7 +50,6 @@
       gpl = "git pull origin $(git_current_branch)";
       gpu = "git push origin $(git_current_branch)";
       gac = "git add . && git commit -m";
-      gacp = "git add . && git commit -m $1 && gpo";
     };
 
     initExtra = ''
@@ -64,6 +63,10 @@
 
       obs() {
         cd ~/docs/vaults && nvim knowitall/index.md && cd -
+      }
+
+      gacp() {
+        git add . && git commit -m $1 && gpufu
       }
     '';
 
