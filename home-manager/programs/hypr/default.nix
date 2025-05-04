@@ -54,6 +54,7 @@ in {
       # Default monitor
       monitor = eDP-1,1920x1200,0x0,1
       monitor = DP-9,2560x1440,1920x0,1
+      monitor = DP-10,2560x1440,4480x0,1
 
       # Default programs
       $terminal = kitty
@@ -99,12 +100,12 @@ in {
         active_opacity = 1.0
         inactive_opacity = 1.0
 
-	shadow {
-	  enabled = true
-          range = 4
-          render_power = 3
-          color = rgba(1a1a1aee)
-	}
+        shadow {
+          enabled = true
+                range = 4
+                render_power = 3
+                color = rgba(1a1a1aee)
+        }
       }
 
       # https://wiki.hyprland.org/Configuring/Variables/#animations

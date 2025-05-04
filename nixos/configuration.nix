@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   pkgs,
   ...
 }: {
@@ -15,6 +14,7 @@
     ./nix.nix
     ./timezone.nix
     ./users.nix
+    ./xdg.nix
 
     # No touchy
     ./hardware-configuration.nix
@@ -40,6 +40,7 @@
     android-studio
     bemoji # Emoji selector using wofi
     (burpsuite.override {proEdition = true;})
+    chromium
     discord
     firefox
     ghidra
@@ -104,6 +105,9 @@
     rustup
     stylua
     terraform-ls
+    tinymist
+    typst
+    typstyle
     uv
   ];
 

@@ -25,7 +25,10 @@
 
     shellAliases = {
       nixswitch = "sudo nixos-rebuild switch --flake ~/.config/noonix/#noonix";
+      nixboot = "sudo nixos-rebuild boot --flake ~/.config/noonix/#noonix";
+      nixtest = "sudo nixos-rebuild test --flake ~/.config/noonix/#noonix";
       nixsearch = "nix search nixpkgs '\\.$1\$'";
+      docker = "sudo docker";
       cat = "bat";
       catc = "bat -pp";
       rg = "rg --colors=match:fg:blue";

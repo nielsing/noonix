@@ -3,6 +3,7 @@
     ./cliphist
     ./hypridle
     ./hyprpaper
+    ./hyprsunset
     ./mako
   ];
 }
