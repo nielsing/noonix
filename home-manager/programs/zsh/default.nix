@@ -32,13 +32,25 @@
       cat = "bat";
       catc = "bat -pp";
       rg = "rg --colors=match:fg:blue";
-      hsts = "history | rg $1";
+      hs = "history | rg $1";
       md = "mkdir";
       tml = "tmux ls";
       tma = "tmux attach -t";
       tms = "tmux new -s";
       k = "kubectl";
       uvr = "uv run";
+      # Git based aliases
+      g = "git";
+      ga = "git add";
+      gd = "git diff";
+      gs = "git status";
+      gc = "git checkout";
+      gcb = "git checkout -b";
+      gcm = "git checkout -b";
+      gpl = "git pull origin $(git_current_branch)";
+      gpu = "git push origin $(git_current_branch)";
+      gac = "git add . && git commit -m";
+      gacp = "git add . && git commit -m $1 && gpo";
     };
 
     initExtra = ''

@@ -182,6 +182,7 @@ in {
 
       # Open programs & lockscreen
       bind = CTRL ALT, F, exec, firefox
+      bind = CTRL ALT, A, exec, firefox --profile /home/nielsing/.mozilla/firefox/5jljoj7z.ambaga
       bind = CTRL ALT, L, exec, hyprlock
       bind = CTRL ALT, S, exec, spotify
       bind = CTRL ALT, B, exec, burpsuite
