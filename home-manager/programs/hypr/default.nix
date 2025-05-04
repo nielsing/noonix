@@ -47,6 +47,11 @@
       fi
     done
   '';
+  doNotDisturb = pkgs.pkgs.writeShellScriptBin "do-not-disturb" ''
+    msg=$([[ $(makoctl mode) == *do-not-disturb* ]] && echo "Notifications turned on" || echo "Notifications turned off")
+    notify-send -t 5000 "$msg"
+    makoctl mode -t do-not-disturb
+  '';
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -180,12 +185,14 @@ in {
       # bind = $mainMod, P, pseudo, # dwindle
       # bind = $mainMod, J, togglesplit, # dwindle
 
-      # Open programs & lockscreen
+      # Open programs, lock screen and mako stuff
       bind = CTRL ALT, F, exec, firefox
       bind = CTRL ALT, A, exec, firefox --profile /home/nielsing/.mozilla/firefox/5jljoj7z.ambaga
       bind = CTRL ALT, L, exec, hyprlock
       bind = CTRL ALT, S, exec, spotify
       bind = CTRL ALT, B, exec, burpsuite
+      bind = CTRL ALT, C, exec, makoctl dismiss -a
+      bind = CTRL ALT, D, exec, ${doNotDisturb}/bin/do-not-disturb
       bind = CTRL ALT, P, exec, ${wofiPassScript}/bin/wofi-pass
       bind = CTRL ALT, Space, exec, ${wofiCalcScript}/bin/wofi-calc
       bind = $mainMod SHIFT, Space, exec, bemoji -t -n
@@ -223,9 +230,8 @@ in {
       binde = $mainMod CTRL, K, resizeactive,0 -50
       binde = $mainMod CTRL, J, resizeactive,0 50
 
-      # Move to adjacent workspace
-      binde = $mainMod, Tab, workspace, m+1
-      binde = $mainMod SHIFT, Tab, workspace, m-1
+      # Move to previous workspace
+      binde = $mainMod, Tab, workspace, previous
 
       # Switch workspaces with mainMod + [0-9]
       bind = $mainMod, 1, workspace, 1
