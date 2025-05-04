@@ -66,7 +66,7 @@
       }
 
       gacp() {
-        git add . && git commit -m $1 && gpufu
+        git add . && git commit -m $1 && gpu
       }
     '';
 
