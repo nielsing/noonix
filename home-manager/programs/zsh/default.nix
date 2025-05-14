@@ -76,7 +76,7 @@
       export MANPAGER="sh -c 'col -bx | bat -l man -p'"
       export MANROFFOPT="-c"
       export TERM=xterm-256color
-      export GOPATH=$HOME/.go                # your workspace
+      export GOPATH=$HOME/.go
       export GOBIN=$GOPATH/bin
       export PATH=$PATH:$GOBIN
     '';
