@@ -39,6 +39,7 @@
       tms = "tmux new -s";
       k = "kubectl";
       uvr = "uv run";
+      nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' >> pyrightconfig.json";
       # Git based aliases
       g = "git";
       ga = "git add";
@@ -75,6 +76,9 @@
       export MANPAGER="sh -c 'col -bx | bat -l man -p'"
       export MANROFFOPT="-c"
       export TERM=xterm-256color
+      export GOPATH=$HOME/.go                # your workspace
+      export GOBIN=$GOPATH/bin
+      export PATH=$PATH:$GOBIN
     '';
   };
 }
