@@ -40,6 +40,7 @@
       k = "kubectl";
       uvr = "uv run";
       nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' >> pyrightconfig.json";
+      semgrep = "docker run -e SEMGREP_SEND_METRICS=off -v $HOME/.semgrep:/root/.semgrep -v .:/src --rm semgrep/semgrep semgrep";
       # Git based aliases
       g = "git";
       ga = "git add";

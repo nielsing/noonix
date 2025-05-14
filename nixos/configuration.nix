@@ -103,7 +103,6 @@
     nixd
     python3Full
     rustup
-    semgrep
     stylua
     terraform-ls
     tinymist
