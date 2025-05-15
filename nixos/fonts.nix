@@ -3,6 +3,7 @@
   ...
 }: {
   fonts = {
+    enableDefaultPackages = true;
     packages = with pkgs; [
       roboto
       dejavu_fonts

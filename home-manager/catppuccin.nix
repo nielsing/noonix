@@ -20,6 +20,7 @@
     mpv.enable = true;
     starship.enable = true;
     tmux.enable = true;
+    vscode.enable = true;
     waybar.enable = true;
     zathura.enable = true;
     zsh-syntax-highlighting.enable = true;

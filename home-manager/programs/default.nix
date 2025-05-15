@@ -16,6 +16,7 @@
     ./ruff
     ./starship
     ./tmux
+    ./vscode
     ./waybar
     ./wofi
     ./zathura
