@@ -88,6 +88,7 @@
     unzip
     wget
     wireguard-tools
+    yq
     zip
 
     # Development tools
