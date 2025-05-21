@@ -24,24 +24,16 @@
     };
 
     shellAliases = {
+      # nix
       nixswitch = "sudo nixos-rebuild switch --flake ~/.config/noonix/#noonix";
       nixboot = "sudo nixos-rebuild boot --flake ~/.config/noonix/#noonix";
       nixtest = "sudo nixos-rebuild test --flake ~/.config/noonix/#noonix";
       nixsearch = "nix search nixpkgs '\\.$1\$'";
-      docker = "sudo docker";
-      cat = "bat";
-      catc = "bat -pp";
-      rg = "rg --colors=match:fg:blue";
-      hs = "history | rg $1";
-      md = "mkdir";
+      # tmux
       tml = "tmux ls";
       tma = "tmux attach -t";
       tms = "tmux new -s";
-      k = "kubectl";
-      uvr = "uv run";
-      nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' >> pyrightconfig.json";
-      semgrep = "docker run -e SEMGREP_SEND_METRICS=off -v $HOME/.semgrep:/root/.semgrep -v .:/src --rm semgrep/semgrep semgrep";
-      # Git based aliases
+      # git
       g = "git";
       ga = "git add";
       gd = "git diff";
@@ -52,6 +44,21 @@
       gpl = "git pull origin $(git_current_branch)";
       gpu = "git push origin $(git_current_branch)";
       gac = "git add . && git commit -m";
+      # docker 
+      docker = "sudo docker";
+      dsh = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') sh";
+      dash = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') bash";
+      dkill = "sudo -v && docker kill $(docker ps | fzf | awk '{print $1;}')";
+      # general
+      cat = "bat";
+      catc = "bat -pp";
+      rg = "rg --colors=match:fg:blue";
+      hs = "history | rg $1";
+      md = "mkdir";
+      k = "kubectl";
+      uvr = "uv run";
+      nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' >> pyrightconfig.json";
+      semgrep = "docker run -e SEMGREP_SEND_METRICS=off -v $HOME/.semgrep:/root/.semgrep -v .:/src --rm semgrep/semgrep semgrep";
     };
 
     initExtra = ''
