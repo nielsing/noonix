@@ -79,6 +79,7 @@
     jadx
     jq
     libqalculate
+    mprocs
     neovim
     openssl
     ripgrep
