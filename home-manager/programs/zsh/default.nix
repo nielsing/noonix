@@ -61,7 +61,7 @@
       semgrep = "docker run -e SEMGREP_SEND_METRICS=off -v $HOME/.semgrep:/root/.semgrep -v .:/src --rm semgrep/semgrep semgrep";
     };
 
-    initExtra = ''
+    initContent = ''
       # Make bat handle -h and --help flags. Makes it more readable and enables paging
       alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
       alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
