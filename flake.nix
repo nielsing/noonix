@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    revert-firmware.url = "github:NixOS/nixpkgs/5ed6b8e022f560b68f0d5503c42d48eb2f1469d7";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,6 +17,7 @@
   outputs = {
     self,
     nixpkgs,
+    revert-firmware,
     home-manager,
     hyprland,
     catppuccin,
@@ -30,12 +32,21 @@
         allowUnfree = true;
       };
     };
+
+    revertFirmware = revert-firmware.legacyPackages.${system};
   in {
     nixosConfigurations = {
       noonix = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs system;};
         modules = [
           ./nixos/configuration.nix
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                linux-firmware = revertFirmware.linux-firmware;
+              })
+            ];
+          }
           catppuccin.nixosModules.catppuccin
           nixos-hardware.nixosModules.lenovo-thinkpad-t14s # CHANGEME: check https://github.com/NixOS/nixos-hardware
           home-manager.nixosModules.home-manager

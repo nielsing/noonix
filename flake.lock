@@ -600,6 +600,22 @@
         "type": "github"
       }
     },
+    "revert-firmware": {
+      "locked": {
+        "lastModified": 1744300474,
+        "narHash": "sha256-G7KAd+qRaXucAbTYOIqOyO+PRdbf87hv+WoqCzpmI2E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5ed6b8e022f560b68f0d5503c42d48eb2f1469d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5ed6b8e022f560b68f0d5503c42d48eb2f1469d7",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -607,7 +623,8 @@
         "hyprland": "hyprland",
         "hyprpolkitagent": "hyprpolkitagent",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "revert-firmware": "revert-firmware"
       }
     },
     "systems": {
