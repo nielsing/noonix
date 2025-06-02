@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   catppuccin = {
     gtk = {
       enable = true;
@@ -10,6 +6,7 @@
     };
     bat.enable = true;
     btop.enable = true;
+    delta.enable = true;
     fzf.enable = true;
     hyprland.enable = true;
     hyprlock.enable = true;

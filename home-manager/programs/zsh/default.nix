@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   programs.zsh = {
     enable = true;
 
@@ -34,17 +30,17 @@
       tma = "tmux attach -t";
       tms = "tmux new -s";
       # git
-      g = "git";
       ga = "git add";
-      gd = "git diff";
-      gs = "git status";
       gc = "git checkout";
+      gd = "git diff";
+      gl = "git log";
+      gs = "git status";
+      gcl = "git clone";
       gcb = "git checkout -b";
-      gcm = "git checkout -b";
       gpl = "git pull origin $(git_current_branch)";
       gpu = "git push origin $(git_current_branch)";
       gac = "git add . && git commit -m";
-      # docker 
+      # docker
       docker = "sudo docker";
       dsh = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') sh";
       dash = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') bash";

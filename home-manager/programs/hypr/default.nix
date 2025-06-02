@@ -292,7 +292,6 @@ in {
       windowrulev2 = float, initialClass:^(jetbrains-studio)$
       windowrulev2 = center, initialClass:^(jetbrains-studio)$
       windowrulev2 = float, initialClass:^(Emulator)$
-      windowrulev2 = float, class:^(burp-StartBurp)$
 
       # Workspace rules
       windowrulev2 = workspace 1, class:^(Slack)$
