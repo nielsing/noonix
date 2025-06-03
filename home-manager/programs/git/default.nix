@@ -12,6 +12,7 @@
       };
     };
     extraConfig = {
+      pull.rebase = false;
       url = {
         "git@github.com:ambagasec/" = {
           insteadOf = "ambaga:";

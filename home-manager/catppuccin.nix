@@ -19,6 +19,7 @@
     tmux.enable = true;
     vscode.enable = true;
     waybar.enable = true;
+    yazi.enable = true;
     zathura.enable = true;
     zsh-syntax-highlighting.enable = true;
   };

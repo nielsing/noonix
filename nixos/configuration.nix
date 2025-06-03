@@ -76,6 +76,7 @@
     file
     gnupg
     htop
+    hyperfine
     jadx
     jq
     libqalculate
@@ -83,11 +84,13 @@
     neovim
     openssl
     ripgrep
+    ripgrep-all
     sshuttle
     tldr
     unixtools.xxd
     unzip
     wget
+    wiki-tui
     wireguard-tools
     yq
     zip
