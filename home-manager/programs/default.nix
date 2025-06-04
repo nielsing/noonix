@@ -19,6 +19,7 @@
     ./vscode
     ./waybar
     ./wofi
+    ./yazi
     ./zathura
     ./zsh
   ];

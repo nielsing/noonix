@@ -36,9 +36,9 @@
 
     # The Basics & Hyprland Basics
     ## GUIs
+    (burpsuite.override {proEdition = true;})
     android-studio
     bemoji # Emoji selector using wofi
-    (burpsuite.override {proEdition = true;})
     chromium
     discord
     firefox
@@ -47,6 +47,7 @@
     pavucontrol
     slack
     spotify
+    teams-for-linux
     xfce.thunar
 
     ## General basics
@@ -90,7 +91,6 @@
     unixtools.xxd
     unzip
     wget
-    wiki-tui
     wireguard-tools
     yq
     zip
