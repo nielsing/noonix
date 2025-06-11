@@ -29,6 +29,17 @@
     layout = "us";
     variant = "";
   };
+  services.tailscale.enable = true;
+
+  # Add documentation 
+  documentation = {
+    enable = true;
+    man.enable = true;
+    doc.enable = true;
+    dev.enable = true;
+    info.enable = true;
+    nixos.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     # Nix specifics
@@ -45,14 +56,16 @@
     ghidra
     kitty
     pavucontrol
+    postman
     slack
     spotify
-    teams-for-linux
     xfce.thunar
 
     ## General basics
     brightnessctl
     libnotify
+    man-pages
+    man-pages-posix
     networkmanagerapplet
     pamixer
     pinentry-qt
@@ -94,6 +107,7 @@
     wireguard-tools
     yq
     zip
+    zizmor
 
     # Development tools
     alejandra

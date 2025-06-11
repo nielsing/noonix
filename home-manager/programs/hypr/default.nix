@@ -60,6 +60,8 @@ in {
       monitor = eDP-1,1920x1200,0x0,1
       monitor = DP-9,2560x1440,1920x0,1
       monitor = DP-10,2560x1440,4480x0,1
+      monitor = DP-7,2560x1440,1920x0,1
+      monitor = DP-11,2560x1440,4480x0,1
 
       # Default programs
       $terminal = kitty
