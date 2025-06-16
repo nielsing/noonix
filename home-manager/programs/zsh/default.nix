@@ -40,6 +40,7 @@
       gpl = "git pull origin $(git_current_branch)";
       gpu = "git push origin $(git_current_branch)";
       gac = "git add . && git commit -m";
+      ghash = "git rev-parse --short HEAD | tr -d '\\n' | wl-copy";
       # docker
       docker = "sudo docker";
       dsh = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') sh";

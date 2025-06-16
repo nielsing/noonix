@@ -23,7 +23,7 @@
         "git@github.com:gagnaglimufelag-islands/" = {
           insteadOf = "ggfi:";
         };
-        "git@github.com" = {
+        "git@github.com:" = {
           insteadOf = "gh:";
         };
       };
