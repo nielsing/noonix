@@ -110,6 +110,7 @@
     zizmor
 
     # Development tools
+    ansible
     alejandra
     basedpyright
     ccls
