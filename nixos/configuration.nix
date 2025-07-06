@@ -110,8 +110,8 @@
     zizmor
 
     # Development tools
-    ansible
     alejandra
+    ansible
     basedpyright
     ccls
     gcc
@@ -121,6 +121,9 @@
     lua
     lua-language-server
     nixd
+    protobuf
+    protoc-gen-go
+    protoc-gen-go-grpc
     python3Full
     rustup
     stylua
