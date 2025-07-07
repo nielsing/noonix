@@ -86,6 +86,7 @@
 
     # CLI Tools
     dig
+    evans
     feh
     file
     gnupg
@@ -100,6 +101,8 @@
     ripgrep
     ripgrep-all
     sshuttle
+    temporal
+    temporal-cli
     tldr
     unixtools.xxd
     unzip
