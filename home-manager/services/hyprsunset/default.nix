@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   services.hyprsunset = {
     enable = true;
     transitions = {
@@ -14,9 +10,10 @@
         ];
       };
       sunset = {
-        calendar = "*-*-* 22:00:00";
+        calendar = "*-*-* 21:30:00";
         requests = [
           ["temperature" "3500"]
+          ["gamma 50"]
         ];
       };
     };

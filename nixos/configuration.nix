@@ -45,8 +45,7 @@
     # Nix specifics
     home-manager
 
-    # The Basics & Hyprland Basics
-    ## GUIs
+    # GUIs
     (burpsuite.override {proEdition = true;})
     android-studio
     bemoji # Emoji selector using wofi
@@ -61,7 +60,7 @@
     spotify
     xfce.thunar
 
-    ## General basics
+    # General basics
     brightnessctl
     libnotify
     man-pages
@@ -71,14 +70,14 @@
     pinentry-qt
     poppler-utils
 
-    ## (Hypr|Way)land basics
+    # (Hypr|Way)land basics
     inputs.hyprpolkitagent.packages."${pkgs.system}".hyprpolkitagent
     waybar
     wl-clipboard
     wofi
     wtype
 
-    ## Screenshots & recording in Hyprland
+    # Screenshots & recording in Hyprland
     grim
     hyprpicker
     hyprshot
@@ -95,6 +94,7 @@
     jadx
     jq
     libqalculate
+    moreutils
     mprocs
     neovim
     openssl
@@ -104,9 +104,12 @@
     temporal
     temporal-cli
     tldr
+    units
     unixtools.xxd
     unzip
+    watchexec
     wget
+    whois
     wireguard-tools
     yq
     zip
@@ -120,6 +123,7 @@
     gcc
     go
     gopls
+    just
     kubectl
     lua
     lua-language-server
