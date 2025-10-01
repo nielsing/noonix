@@ -71,7 +71,7 @@
     poppler-utils
 
     # (Hypr|Way)land basics
-    # inputs.hyprpolkitagent.packages."${pkgs.system}".hyprpolkitagent
+    hyprpolkitagent
     waybar
     wl-clipboard
     wofi

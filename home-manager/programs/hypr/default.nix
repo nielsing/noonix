@@ -167,11 +167,9 @@ in {
           }
       }
 
-      # https://wiki.hyprland.org/Configuring/Variables/#gestures
-      gestures {
-        workspace_swipe = true
-        workspace_swipe_fingers = 3
-      }
+      # Gestures
+      # https://wiki.hypr.land/Configuring/Gestures/
+      gesture = 3, horizontal, workspace
 
       # See https://wiki.hyprland.org/Configuring/Keywords/
       $mainMod = SUPER
