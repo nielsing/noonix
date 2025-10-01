@@ -71,7 +71,7 @@
     poppler-utils
 
     # (Hypr|Way)land basics
-    inputs.hyprpolkitagent.packages."${pkgs.system}".hyprpolkitagent
+    # inputs.hyprpolkitagent.packages."${pkgs.system}".hyprpolkitagent
     waybar
     wl-clipboard
     wofi
@@ -131,7 +131,7 @@
     protobuf
     protoc-gen-go
     protoc-gen-go-grpc
-    python3Full
+    python3
     rustup
     stylua
     terraform-ls
