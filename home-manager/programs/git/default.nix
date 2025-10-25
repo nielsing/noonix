@@ -1,18 +1,12 @@
 {...}: {
   programs.git = {
     enable = true;
-    userEmail = "niels.ingi@gmail.com";
-    userName = "nielsing";
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        line-numbers = true;
-        hyperlinks = true;
-      };
-    };
-    extraConfig = {
+    settings = {
       pull.rebase = false;
+      user = {
+        email = "niels.ingi@gmail.com";
+        name = "nielsing";
+      };
       url = {
         "git@github.com:ambagasec/" = {
           insteadOf = "ambaga:";

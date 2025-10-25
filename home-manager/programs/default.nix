@@ -2,6 +2,7 @@
   imports = [
     ./bat
     ./btop
+    ./delta
     ./fd
     ./fzf
     ./git
