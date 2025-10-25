@@ -134,6 +134,7 @@
     python3
     rustup
     stylua
+    terraform
     terraform-ls
     tinymist
     typst

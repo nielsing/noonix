@@ -46,7 +46,7 @@
       dsh = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') sh";
       dash = "sudo -v && docker exec -it $(docker ps | fzf | awk '{print $1;}') bash";
       dkill = "sudo -v && docker kill $(docker ps | fzf | awk '{print $1;}')";
-      # general
+      # QoL
       cat = "bat";
       catc = "bat -pp";
       rg = "rg --colors=match:fg:blue";
@@ -73,6 +73,10 @@
 
       gacp() {
         git add . && git commit -m $1 && git push origin $(git_current_branch)
+      }
+
+      weather() {
+        curl "wttr.in/$1?M"
       }
     '';
 

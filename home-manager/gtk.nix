@@ -3,8 +3,12 @@
     enable = true;
     colorScheme = "dark";
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "catppuccin-macchiato-blue-standard";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "blue" ];
+        size = "standard";
+        variant = "macchiato";
+      };
     };
   };
   dconf.settings = {
