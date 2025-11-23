@@ -56,6 +56,7 @@
       uvr = "uv run";
       nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' >> pyrightconfig.json";
       semgrep = "docker run -e SEMGREP_SEND_METRICS=off -v $HOME/.semgrep:/root/.semgrep -v .:/src --rm semgrep/semgrep semgrep";
+      httpmock = "docker run --rm -v \"$(pwd)\":/mocks -e HTTPMOCK_DISABLE_ACCESS_LOG=false -e RUST_LOG=debug -p 5050:5050 httpmock/httpmock -m '/mocks'";
     };
 
     initContent = ''

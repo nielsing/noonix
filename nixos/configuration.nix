@@ -48,6 +48,7 @@
     # GUIs
     (burpsuite.override {proEdition = true;})
     android-studio
+    android-tools
     bemoji # Emoji selector using wofi
     chromium
     discord
