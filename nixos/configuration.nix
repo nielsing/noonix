@@ -59,7 +59,7 @@
     postman
     slack
     spotify
-    xfce.thunar
+    thunar
 
     # General basics
     brightnessctl

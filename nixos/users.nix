@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  programs.adb.enable = true;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   users.users.nielsing = {

@@ -1,6 +1,8 @@
-{...}: {
+{config, ...}: {
   programs.zsh = {
     enable = true;
+
+    dotDir = config.home.homeDirectory;
 
     history = {
       ignoreSpace = true;
