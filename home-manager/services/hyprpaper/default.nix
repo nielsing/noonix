@@ -2,8 +2,13 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["~/pics/ambaga-bg.jpg"];
-      wallpaper = [", ~/pics/ambaga-bg.jpg"];
+      splash = false;
+      wallpaper = [
+        {
+          monitor = "";
+          path = "~/pics/ambaga-bg.jpg";
+        }
+      ];
     };
   };
 }
