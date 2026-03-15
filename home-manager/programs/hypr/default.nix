@@ -280,29 +280,29 @@ in {
       # Window Rules
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
-      windowrulev2 = suppressevent maximize, class:.* # You'll probably like this.
+      windowrule = suppress_event maximize, match:class .*
 
       # Windows we want to float & possibly center
-      windowrulev2 = float, class:^(org.pulseaudio.pavucontrol)$
-      windowrulev2 = center, class:^(org.pulseaudio.pavucontrol)$
-      windowrulev2 = size 950 867, class:^(org.pulseaudio.pavucontrol)$
-      windowrulev2 = float, class:^(.blueman-manager-wrapped)$
-      windowrulev2 = center, class:^(.blueman-manager-wrapped)$
-      windowrulev2 = size 838 657, class:^(.blueman-manager-wrapped)$
-      windowrulev2 = float, initialClass:^(jetbrains-studio)$
-      windowrulev2 = center, initialClass:^(jetbrains-studio)$
-      windowrulev2 = float, initialClass:^(Emulator)$
+      windowrule = float on, match:class ^(org\.pulseaudio\.pavucontrol)$
+      windowrule = center on, match:class ^(org\.pulseaudio\.pavucontrol)$
+      windowrule = size 950 867, match:class ^(org\.pulseaudio\.pavucontrol)$
+      windowrule = float on, match:class ^(.blueman-manager-wrapped)$
+      windowrule = center on, match:class ^(.blueman-manager-wrapped)$
+      windowrule = size 838 657, match:class ^(.blueman-manager-wrapped)$
+      windowrule = float on, match:initial_class ^(jetbrains-studio)$
+      windowrule = center on, match:initial_class ^(jetbrains-studio)$
+      windowrule = float on, match:initial_class ^(Emulator)$
 
       # Workspace rules
-      windowrulev2 = workspace 1, class:^(Slack)$
-      windowrulev2 = workspace 1, class:^(discord)$
-      windowrulev2 = workspace 1, class:^(Spotify)$
-      windowrulev2 = workspace 5, class:^(burp-StartBurp)$
+      windowrule = workspace 1, match:class ^(Slack)$
+      windowrule = workspace 1, match:class ^(discord)$
+      windowrule = workspace 1, match:class ^(Spotify)$
+      windowrule = workspace 5, match:class ^(burp-StartBurp)$
 
       # Hyperspecific rules
-      windowrulev2 = size 120 30, floating:1, class:^(kitty)$
-      windowrulev2 = size 508 1099, initialClass:^(Emulator), title:(Android Emulator - .*)$
-      windowrulev2 = move 113 164, initialClass:^(Emulator), title:(Android Emulator - .*)$
+      windowrule = size 120 30, match:float true, match:class ^(kitty)$
+      windowrule = size 508 1099, match:initial_class ^(Emulator), match:initial_title (Android Emulator - .*)$
+      windowrule = move 113 164, match:initial_class ^(Emulator), match:initial_title (Android Emulator - .*)$
     '';
   };
 }
