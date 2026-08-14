@@ -101,13 +101,16 @@
     openssl
     ripgrep
     ripgrep-all
+    sdcv
     sshuttle
     temporal
     temporal-cli
     tldr
     units
     unixtools.xxd
+    unixtools.netstat
     unzip
+    w3m
     watchexec
     wget
     whois

@@ -81,6 +81,10 @@
       weather() {
         curl "wttr.in/$1?M"
       }
+
+      dict() {
+        SDCV_PAGER="w3m -T text/html -dump" sdcv "$@"
+      }
     '';
 
     envExtra = ''
@@ -91,6 +95,7 @@
       export GOPATH=$HOME/.go
       export GOBIN=$GOPATH/bin
       export PATH=$PATH:$GOBIN
+      export STARDICT_DATA_DIR="$HOME/docs/ordabok/islensk-ordabok/"
     '';
   };
 }

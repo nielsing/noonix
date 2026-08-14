@@ -59,7 +59,8 @@ in {
       # Default monitor
       monitor = eDP-1,preferred,0x0,1
       monitor = DP-7,preferred,1920x0,1
-      monitor = DP-10,preferred,4480x0,1
+      monitor = DP-9,preferred,4480x0,1
+      # monitor = DP-10,preferred,4480x0,1
 
       # Default programs
       $terminal = kitty
