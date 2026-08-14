@@ -1,5 +1,11 @@
 {...}: {
   catppuccin = {
+    enable = true;
+    autoEnable = false;
+
+    flavor = "macchiato";
+    accent = "blue";
+
     gtk = {
       icon.enable = true;
     };
@@ -7,7 +13,7 @@
     btop.enable = true;
     delta.enable = true;
     fzf.enable = true;
-    hyprland.enable = true;
+    hyprland.enable = false;
     hyprlock.enable = true;
     k9s.enable = true;
     kitty.enable = true;

@@ -46,7 +46,7 @@
     home-manager
 
     # GUIs
-    (burpsuite.override {proEdition = true;})
+    burpsuite
     android-studio
     android-tools
     bemoji # Emoji selector using wofi

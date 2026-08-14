@@ -55,6 +55,7 @@
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     extraConfig = ''
       # Default monitor
       monitor = eDP-1,preferred,0x0,1
@@ -86,8 +87,10 @@ in {
         gaps_out = 7
         border_size = 3
 
-        col.active_border = rgba($blueAlphaee) rgba($mauveAlphaee) 45deg
-        col.inactive_border = rgba($surface0Alphaee)
+        #col.active_border = rgba($blueAlphaee) rgba($mauveAlphaee) 45deg
+        #col.inactive_border = rgba($surface0Alphaee)
+        col.active_border = rgba(8aadf4ee) rgba(c6a0f6ee) 45deg
+        col.inactive_border = rgba(363a4fee)
 
         resize_on_border = false
         allow_tearing = false
@@ -126,12 +129,6 @@ in {
         animation = borderangle, 1, 8, default
         animation = fade, 1, 7, default
         animation = workspaces, 1, 6, default
-      }
-
-      # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-      dwindle {
-        pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = true # You probably want this
       }
 
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more

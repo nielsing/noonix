@@ -32,8 +32,5 @@
     size = 24;
   };
 
-  catppuccin.accent = "blue";
-  catppuccin.flavor = "macchiato";
-
   programs.home-manager.enable = true;
 }

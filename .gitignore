@@ -1,0 +1,19 @@
+# Nix build outputs
+result
+result-*
+
+# direnv / nix-direnv
+.direnv/
+
+# Local environment/secrets
+.env
+.env.*
+
+# Editor swap/backup files
+*.swp
+*.swo
+*~
+
+# OS metadata
+.DS_Store
+Thumbs.db
