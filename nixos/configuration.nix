@@ -30,6 +30,7 @@
     variant = "";
   };
   services.tailscale.enable = true;
+  services.twingate.enable = true;
 
   # Add documentation 
   documentation = {

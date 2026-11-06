@@ -1,14 +1,15 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   services.greetd = {
     enable = true;
+    useTextGreeter = true;
     settings = {
-      initial_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
-        user = "nielsing";
-      };
       default_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
-        user = "nielsing";
+        command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd ${lib.getExe pkgs.hyprland}";
+        user = "greeter";
       };
     };
   };

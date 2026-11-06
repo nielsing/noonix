@@ -9,9 +9,24 @@
     blueman-applet &
   '';
   wofiPassScript = pkgs.pkgs.writeShellScriptBin "wofi-pass" ''
-    selected=`fd '.*' -e gpg --hidden --no-ignore /home/nielsing/.password-store | cut -d '/' -f5- | cut -d '.' -f1 | wofi -p 'pass' -S dmenu`
-    pass show -c "$selected"
-    notify-send -t 5000 'Copied password to clipboard!' "$selected"
+    selected="$(
+      fd --type f --extension gpg . "$PASSWORD_STORE_DIR") \
+      | sed "s|^$PASSWORD_STORE_DIR||; s|\.gpg$||" \
+      | wofi --prompt pass --show dmenu
+    )"
+
+    [[ -n "$selected" ]] || exit 0
+
+    if pass show "$selected" \
+      | sed -n '1p \
+      | sed -z 's/\n//g' \
+      | wl-copy --sensitive
+    then
+      notify-send -t 5000 'Copied password to clipboard!' "$selected"
+    else
+      notify-send -u 5000 'Could not copy password'
+      exit 1
+    fi
   '';
   wofiCalcScript = pkgs.pkgs.writeShellScriptBin "wofi-calc" ''
     RESULT_FILE="$HOME/.config/qalculate/qalc.result.history"
@@ -71,7 +86,6 @@ in {
       $menu = wofi --show drun
 
       # Autostart
-      exec-once = hyprlock                     # Require login on startup
       exec-once = ${startupScript}/bin/startup # Start everything after login
 
       # Cursor customization

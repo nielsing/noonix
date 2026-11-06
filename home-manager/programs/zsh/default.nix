@@ -26,7 +26,6 @@
       nixswitch = "sudo nixos-rebuild switch --flake ~/.config/noonix/#noonix";
       nixboot = "sudo nixos-rebuild boot --flake ~/.config/noonix/#noonix";
       nixtest = "sudo nixos-rebuild test --flake ~/.config/noonix/#noonix";
-      nixsearch = "nix search nixpkgs '\\.$1\$'";
       # tmux
       tml = "tmux ls";
       tma = "tmux attach -t";
@@ -52,11 +51,10 @@
       cat = "bat";
       catc = "bat -pp";
       rg = "rg --colors=match:fg:blue";
-      hs = "history | rg $1";
       md = "mkdir";
       k = "kubectl";
       uvr = "uv run";
-      nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' >> pyrightconfig.json";
+      nopytype = "echo '{\"typeCheckingMode\": \"basic\"}' > pyrightconfig.json";
       semgrep = "docker run -e SEMGREP_SEND_METRICS=off -v $HOME/.semgrep:/root/.semgrep -v .:/src --rm semgrep/semgrep semgrep";
       httpmock = "docker run --rm -v \"$(pwd)\":/mocks -e HTTPMOCK_DISABLE_ACCESS_LOG=false -e RUST_LOG=debug -p 5050:5050 httpmock/httpmock -m '/mocks'";
     };
@@ -67,7 +65,7 @@
       alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
       cdd() {
-        mkdir $1 && cd $_
+        mkdir "$1" && cd $_
       }
 
       obs() {
@@ -75,7 +73,7 @@
       }
 
       gacp() {
-        git add . && git commit -m $1 && git push origin $(git_current_branch)
+        git add . && git commit -m "$*" && git push origin $(git_current_branch)
       }
 
       weather() {
@@ -84,6 +82,14 @@
 
       dict() {
         SDCV_PAGER="w3m -T text/html -dump" sdcv "$@"
+      }
+
+      nixsearch() {
+        nix search nixpkgs "$1$"
+      }
+
+      hs() {
+        history | rg "$*"
       }
     '';
 
