@@ -46,9 +46,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # Nix specifics
-    home-manager
-
     # GUIs
     burpsuite
     android-studio

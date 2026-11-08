@@ -1,32 +1,60 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }: let
+  passwordStoreDir = config.programs.password-store.settings.PASSWORD_STORE_DIR;
+
   startupScript = pkgs.pkgs.writeShellScriptBin "startup" ''
     systemctl --user start hyprpolkitagent
     ${pkgs.waybar}/bin/waybar &
     ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
     blueman-applet &
   '';
-  wofiPassScript = pkgs.pkgs.writeShellScriptBin "wofi-pass" ''
-    selected="$(
-      fd --type f --extension gpg . "$PASSWORD_STORE_DIR" \
-      | sed "s|^$PASSWORD_STORE_DIR||; s|\.gpg$||" \
-      | wofi --prompt pass --show dmenu
-    )"
 
-    [[ -n "$selected" ]] || exit 0
+  wofiPassScript = pkgs.writeShellApplication {
+    name = "wofi-pass";
 
-    if pass show "$selected" \
-      | sed -n '1p' \
-      | wl-copy --sensitive --trim-newline
-    then
-      notify-send -t 5000 'Copied password to clipboard!' "$selected"
-    else
-      notify-send -u critical 'Could not copy password'
-      exit 1
-    fi
-  '';
+    runtimeInputs = [
+      config.programs.password-store.package
+      pkgs.fd
+      pkgs.gnused
+      pkgs.libnotify
+      pkgs.wl-clipboard
+      pkgs.wofi
+    ];
+
+    text = ''
+      export PASSWORD_STORE_DIR=${lib.escapeShellArg passwordStoreDir}
+
+      selected="$(
+        fd \
+          --base-directory "$PASSWORD_STORE_DIR" \
+          --type f \
+          --extension gpg \
+          . \
+          | sed 's|\.gpg$||' \
+          | wofi --prompt pass --show dmenu
+      )" || exit 0
+
+      [[ -n "$selected" ]] || exit 0
+
+      if pass show "$selected" \
+        | sed -n '1p' \
+        | wl-copy --sensitive --trim-newline
+      then
+        notify-send -t 5000 \
+          "Password copied" \
+          "$selected"
+      else
+        notify-send -u critical -t 5000 \
+          "Could not copy password"
+        exit 1
+      fi
+    '';
+  };
+
   wofiCalcScript = pkgs.pkgs.writeShellScriptBin "wofi-calc" ''
     RESULT_FILE="$HOME/.config/qalculate/qalc.result.history"
     if [ ! -f "$RESULT_FILE" ]; then
