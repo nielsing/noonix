@@ -119,12 +119,12 @@
 
     text = ''
       if [[ "$(makoctl mode)" == *"do-not-disturb"* ]]; then
-        message="Notifications turned on"
+        notify-send --expire-time 5000 "Notifications turned on"
       else
-        message="Notifications turned off"
+        notify-send --expire-time 5000 "Notifications turned off"
+        sleep 1
       fi
 
-      notify-send --expire-time 5000 "$message"
       makoctl mode -t do-not-disturb
     '';
   };

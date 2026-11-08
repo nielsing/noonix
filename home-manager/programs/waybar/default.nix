@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   programs.waybar = {
     enable = true;
     settings = [
@@ -21,9 +17,9 @@
 
         "network" = {
           "format-wifi" = "<span size='11000' foreground='#8aadf4'>  </span>{essid}";
-          "format-ethernet" = "<span size='11000' foreground='#8aadf4'>󰤭  </span> Disconnected";
-          "format-linked" = "{ifname} (No IP) ";
-          "format-disconnected" = "<span size='11000' foreground='#8aadf4'>  </span>Disconnected";
+          "format-ethernet" = "<span size='11000' foreground='#8aadf4'>󰈀  </span> Wired";
+          "format-linked" = "<span size='11000' foreground='#eed49f'>󰈀  </span>{ifname} (No IP)";
+          "format-disconnected" = "<span size='11000' foreground='#ed8796'>󰤭  </span>Disconnected";
           "tooltip-format-wifi" = "Signal Strenght: {signalStrength}%";
         };
 
