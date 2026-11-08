@@ -1,7 +1,13 @@
 {
+  inputs,
   pkgs,
   ...
-}: {
+}: let 
+  appPkgs = import inputs.nixpkgs-apps {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in {
   imports = [
     ./audio.nix
     ./bluetooth.nix
@@ -47,18 +53,17 @@
 
   environment.systemPackages = with pkgs; [
     # GUIs
-    burpsuite
+    appPkgs.burpsuite
     android-studio
     android-tools
     bemoji # Emoji selector using wofi
-    chromium
-    discord
-    firefox
+    appPkgs.chromium
+    appPkgs.discord
+    appPkgs.firefox
     ghidra
     kitty
     pavucontrol
-    postman
-    slack
+    appPkgs.slack
     spotify
     thunar
 
