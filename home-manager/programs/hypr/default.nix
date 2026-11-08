@@ -6,13 +6,6 @@
 }: let
   passwordStoreDir = config.programs.password-store.settings.PASSWORD_STORE_DIR;
 
-  startupScript = pkgs.pkgs.writeShellScriptBin "startup" ''
-    systemctl --user start hyprpolkitagent
-    ${pkgs.waybar}/bin/waybar &
-    ${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &
-    blueman-applet &
-  '';
-
   wofiPassScript = pkgs.writeShellApplication {
     name = "wofi-pass";
 
@@ -150,9 +143,6 @@ in {
       $browser = firefox
       $editor = nvim
       $menu = wofi --show drun
-
-      # Autostart
-      exec-once = ${startupScript}/bin/startup # Start everything after login
 
       # Cursor customization
       #exec-once = hyprctl setcursor "Catppuccin-Macchiato-Blue" 24

@@ -73,8 +73,6 @@
     poppler-utils
 
     # (Hypr|Way)land basics
-    hyprpolkitagent
-    waybar
     wl-clipboard
     wofi
     wtype
