@@ -10,7 +10,7 @@
   '';
   wofiPassScript = pkgs.pkgs.writeShellScriptBin "wofi-pass" ''
     selected="$(
-      fd --type f --extension gpg . "$PASSWORD_STORE_DIR") \
+      fd --type f --extension gpg . "$PASSWORD_STORE_DIR" \
       | sed "s|^$PASSWORD_STORE_DIR||; s|\.gpg$||" \
       | wofi --prompt pass --show dmenu
     )"
@@ -18,13 +18,12 @@
     [[ -n "$selected" ]] || exit 0
 
     if pass show "$selected" \
-      | sed -n '1p \
-      | sed -z 's/\n//g' \
-      | wl-copy --sensitive
+      | sed -n '1p' \
+      | wl-copy --sensitive --trim-newline
     then
       notify-send -t 5000 'Copied password to clipboard!' "$selected"
     else
-      notify-send -u 5000 'Could not copy password'
+      notify-send -u critical 'Could not copy password'
       exit 1
     fi
   '';
