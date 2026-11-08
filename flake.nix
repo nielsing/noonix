@@ -8,7 +8,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
     catppuccin.url = "github:catppuccin/nix";
   };
 
@@ -16,22 +15,14 @@
     self,
     nixpkgs,
     home-manager,
-    hyprland,
     catppuccin,
     nixos-hardware,
-  } @ inputs: let
-    system = "x86_64-linux";
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-      };
-    };
-  in {
+    ...
+  } @ inputs: {
     nixosConfigurations = {
       noonix = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs system;};
+        specialArgs = {inherit inputs;};
+
         modules = [
           ./nixos/configuration.nix
           catppuccin.nixosModules.catppuccin
@@ -40,7 +31,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.nielsing = {imports = [./home-manager/home.nix catppuccin.homeModules.catppuccin];};
+            home-manager.users.nielsing.imports = [
+              ./home-manager/home.nix 
+              catppuccin.homeModules.catppuccin
+            ];
             home-manager.extraSpecialArgs = {inherit inputs;};
           }
         ];

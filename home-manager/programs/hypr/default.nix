@@ -70,6 +70,11 @@
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+
+    # Installed and managed by NixOS
+    package = null;
+    portalPackage = null;
+
     configType = "hyprlang";
     extraConfig = ''
       # Default monitor

@@ -20,7 +20,10 @@
   ];
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 10;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices."luks-b09fb35e-5c8a-423b-a855-76f0898d1190".device = "/dev/disk/by-uuid/b09fb35e-5c8a-423b-a855-76f0898d1190";
 
@@ -32,7 +35,7 @@
   services.tailscale.enable = true;
   services.twingate.enable = true;
 
-  # Add documentation 
+  # Add documentation
   documentation = {
     enable = true;
     man.enable = true;
