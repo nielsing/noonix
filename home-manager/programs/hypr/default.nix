@@ -55,45 +55,79 @@
     '';
   };
 
-  wofiCalcScript = pkgs.pkgs.writeShellScriptBin "wofi-calc" ''
-    RESULT_FILE="$HOME/.config/qalculate/qalc.result.history"
-    if [ ! -f "$RESULT_FILE" ]; then
-      touch $RESULT_FILE
-    fi
+  wofiCalcScript = pkgs.writeShellApplication {
+    name = "wofi-calc";
 
-    LAST_WOFI=""
-    QALC_RET=""
-    while :
-    do
-      qalc_hist=`tac $RESULT_FILE | head -1000`
-      WOFI_RET=`wofi --sort-order=default --cache-file=/dev/null -d -p calc <<< "$qalc_hist"`
+    runtimeInputs = with pkgs; [
+      coreutils
+      gnused
+      libqalculate
+      wl-clipboard
+      wofi
+    ];
 
-      rtrn=$?
+    text = ''
+      result_directory="''${XDG_CONFIG_HOME:-"$HOME/.config"}/qalculate"
+      result_file="$result_directory/qalc.result.history"
+      last_input=""
 
-      if test "$rtrn" = "0"; then
-        if [[ "$WOFI_RET" =~ .*=.* ]]; then
-          RESULT=`echo "$WOFI_RET" | awk {'print $NF'}`
-          wl-copy "$RESULT"
-          exit 0
+      while true; do
+        history=""
+
+        if [[ -f "$result_file" ]]; then
+          history="$(tail -n 1000 -- "$result_file" | tac)"
+        fi
+
+        if wofi_result="$(
+          wofi \
+            --dmenu \
+            --prompt calc \
+            --sort-order default \
+            --cache-file /dev/null \
+            <<< "$history"
+        )"; then
+          if [[ "$wofi_result" == *"="* ]]; then
+            result="$(awk '{ print $NF }' <<< "$wofi_result")"
+            printf '%s' "$result" | wl-copy
+            exit 0
+          fi
+
+          calculation="$(qalc "$wofi_result")"
+          last_input="$wofi_result"
+
+          mkdir -p -- "$result_directory"
+          printf '%s\n' "$calculation" >> "$result_file"
         else
-          QALC_RET=`qalc "$WOFI_RET"`
-          LAST_WOFI=$WOFI_RET
-          echo $QALC_RET >> $RESULT_FILE
+          if [[ -n "$last_input" ]]; then
+            result="$(qalc -t "$last_input")"
+            printf '%s' "$result" | wl-copy
+          fi
+
+          exit 0
         fi
+      done
+    '';
+  };
+
+  doNotDisturb = pkgs.writeShellApplication {
+    name = "do-not-disturb";
+
+    runtimeInputs = with pkgs; [
+      libnotify
+      mako
+    ];
+
+    text = ''
+      if [[ "$(makoctl mode)" == *"do-not-disturb"* ]]; then
+        message="Notifications turned on"
       else
-        if [ ! -z "$LAST_WOFI" ]; then
-          RESULT=`qalc -t "$LAST_WOFI"`
-          wl-copy "$RESULT"
-        fi
-        exit 0
+        message="Notifications turned off"
       fi
-    done
-  '';
-  doNotDisturb = pkgs.pkgs.writeShellScriptBin "do-not-disturb" ''
-    msg=$([[ $(makoctl mode) == *do-not-disturb* ]] && echo "Notifications turned on" || echo "Notifications turned off")
-    notify-send -t 5000 "$msg"
-    makoctl mode -t do-not-disturb
-  '';
+
+      notify-send --expire-time 5000 "$message"
+      makoctl mode --toggle do-not-disturb
+    '';
+  };
 in {
   wayland.windowManager.hyprland = {
     enable = true;
