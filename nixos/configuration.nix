@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }: {
@@ -7,6 +6,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./docker.nix
+    ./firmware.nix
     ./fonts.nix
     ./greeter.nix
     ./hyprland.nix
