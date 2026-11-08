@@ -125,7 +125,7 @@
       fi
 
       notify-send --expire-time 5000 "$message"
-      makoctl mode --toggle do-not-disturb
+      makoctl mode -t do-not-disturb
     '';
   };
 in {
