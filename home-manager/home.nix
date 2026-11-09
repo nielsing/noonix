@@ -1,4 +1,6 @@
 {
+  config,
+  inputs,
   pkgs,
   ...
 }: {
@@ -17,6 +19,10 @@
     ./services
     ./qt.nix
     ./xdg.nix
+  ];
+
+  home.packages = [
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.doh
   ];
 
   home.sessionVariables = {
