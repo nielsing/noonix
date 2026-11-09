@@ -9,15 +9,28 @@ readonly DOH_MANAGED_TAG="doh-managed"
 readonly DOH_WG_INTERFACE="doh-router"
 
 TEMP_FILES=()
+PROVISION_NOTIFICATION_ACTIVE=false
+PROVISION_NOTIFICATION_PROFILE=""
+PROVISION_NOTIFICATION_NAME=""
+PROVISION_NOTIFICATION_STARTED_AT=0
 
 cleanup() {
+  local exit_status=$?
   local path
+
+  trap - EXIT
 
   for path in "${TEMP_FILES[@]}"; do
     if [[ -n "$path" && -f "$path" ]]; then
       rm -f -- "$path"
     fi
   done
+
+  if [[ "$PROVISION_NOTIFICATION_ACTIVE" == "true" && $exit_status -ne 0 ]]; then
+    notify_provisioning_failure
+  fi
+
+  exit "$exit_status"
 }
 
 trap cleanup EXIT
@@ -29,6 +42,73 @@ die() {
 
 warn() {
   printf 'doh: warning: %s\n' "$*" >&2
+}
+
+send_notification() {
+  local urgency=$1
+  local title=$2
+  local message=$3
+
+  [[ -n ${DBUS_SESSION_BUS_ADDRESS:-} ]] || return 0
+
+  notify-send \
+    --app-name=doh \
+    --urgency="$urgency" \
+    "$title" \
+    "$message" \
+    >/dev/null 2>&1 || true
+}
+
+format_elapsed_time() {
+  local elapsed=$1
+  local minutes seconds
+
+  minutes=$((elapsed / 60))
+  seconds=$((elapsed % 60))
+
+  if (( minutes > 0 )); then
+    printf '%dm %02ds\n' "$minutes" "$seconds"
+  else
+    printf '%ds\n' "$seconds"
+  fi
+}
+
+begin_provisioning_notification() {
+  PROVISION_NOTIFICATION_ACTIVE=true
+  PROVISION_NOTIFICATION_PROFILE=$1
+  PROVISION_NOTIFICATION_NAME=$2
+  PROVISION_NOTIFICATION_STARTED_AT=$SECONDS
+}
+
+notify_provisioning_failure() {
+  local elapsed message state
+
+  elapsed=$(format_elapsed_time "$((SECONDS - PROVISION_NOTIFICATION_STARTED_AT))")
+  state=$(state_file "$PROVISION_NOTIFICATION_PROFILE")
+
+  if [[ -f "$state" ]] && [[ -n $(jq -r '.ip // empty' "$state" 2>/dev/null) ]]; then
+    message="Failed after $elapsed. Inspect with: doh $PROVISION_NOTIFICATION_PROFILE ssh sudo tail -n 200 /var/log/cloud-init-output.log"
+  else
+    message="Failed after $elapsed. Check the terminal output for details."
+  fi
+
+  send_notification \
+    critical \
+    "doh — $PROVISION_NOTIFICATION_NAME provisioning failed" \
+    "$message"
+}
+
+notify_provisioning_success() {
+  local ip=$1
+  local elapsed
+
+  elapsed=$(format_elapsed_time "$((SECONDS - PROVISION_NOTIFICATION_STARTED_AT))")
+  PROVISION_NOTIFICATION_ACTIVE=false
+
+  send_notification \
+    normal \
+    "doh — $PROVISION_NOTIFICATION_NAME is ready" \
+    "$PROVISION_NOTIFICATION_PROFILE Droplet $ip finished provisioning in $elapsed."
 }
 
 usage() {
@@ -702,11 +782,12 @@ write_wireguard_config() {
   {
     printf '[Interface]\n'
     printf 'PrivateKey = %s\n' "$(<"$private_key")"
-    printf 'Address = 10.77.0.2/32\n\n'
+    printf 'Address = 10.77.0.2/32\n'
+    printf 'DNS = 1.1.1.1\n\n'
     printf '[Peer]\n'
     printf 'PublicKey = %s\n' "$server_public_key"
     printf 'Endpoint = %s:%s\n' "$endpoint_ip" "$WG_PORT"
-    printf 'AllowedIPs = 0.0.0.0/0\n'
+    printf 'AllowedIPs = 0.0.0.0/0, ::/0\n'
     printf 'PersistentKeepalive = 25\n'
   } >"$temporary"
 
@@ -764,24 +845,22 @@ ssh_to_profile() {
     -o ConnectTimeout=10 \
     -o ServerAliveInterval=30 \
     -o ServerAliveCountMax=3 \
+    -o StrictHostKeyChecking=accept-new \
     "$(ssh_target "$profile")" \
     "$@"
 }
 
 wait_for_ssh() {
   local profile=$1
-  local attempt
+  local attempt ip
 
-  printf 'Waiting for SSH and first-boot provisioning'
+  ip=$(read_state "$profile" '.ip | strings | select(length > 0)')
+  printf 'Waiting for the SSH service'
   for attempt in $(seq 1 180); do
-    if ssh \
-      -o BatchMode=yes \
-      -o ConnectTimeout=5 \
-      -o StrictHostKeyChecking=accept-new \
-      "$(ssh_target "$profile")" \
-      true \
-      >/dev/null 2>&1; then
+    if ssh-keyscan -T 5 "$ip" >/dev/null 2>&1; then
       printf '\n'
+      # cloud-init creates the login user shortly after sshd starts.
+      sleep 5
       return
     fi
 
@@ -799,6 +878,7 @@ wait_for_cloud_init() {
   local profile=$1
 
   printf 'Waiting for cloud-init to finish...\n'
+  printf 'Your SSH key passphrase may be requested.\n'
   if ! ssh_to_profile "$profile" sudo cloud-init status --wait; then
     warn "cloud-init did not complete successfully"
     warn "inspect it with: doh $profile ssh sudo tail -n 200 /var/log/cloud-init-output.log"
@@ -810,10 +890,12 @@ create_droplet() {
   local profile=$1
   local connect_after=${2:-false}
   local existing_state role_tag name sizes_json size public_key cloud_init
-  local create_json id ip project_arguments=()
+  local create_json id ip project_arguments=() droplet_agent_arguments=()
 
   existing_state=$(state_file "$profile")
   [[ ! -e "$existing_state" ]] || die "$profile already has local state; inspect it with: doh $profile status"
+
+  begin_provisioning_notification "$profile" "$DROPLET_NAME"
 
   load_profile "$profile"
   public_key=$(ssh_public_key) || die "could not retrieve ssh_key $SSH_KEY from DigitalOcean"
@@ -830,6 +912,10 @@ create_droplet() {
     project_arguments=(--project-id "$PROJECT_ID")
   fi
 
+  if [[ "$profile" == "router" ]]; then
+    droplet_agent_arguments=(--droplet-agent=false)
+  fi
+
   printf 'Creating %s in %s...\n' "$name" "$REGION"
   create_json=$(doctl_context compute droplet create "$name" \
     --region "$REGION" \
@@ -840,8 +926,8 @@ create_droplet() {
     --user-data-file "$cloud_init" \
     --enable-private-networking \
     --wait \
-    --wait-timeout 600 \
     --output json \
+    "${droplet_agent_arguments[@]}" \
     "${project_arguments[@]}")
   check_api_json "$create_json" "creating $name"
 
@@ -875,6 +961,8 @@ create_droplet() {
     printf 'Herdr TUI:         herdr --remote %s\n' "$(ssh_target dev)"
     printf 'Herdr Core setup:  hc machine add %s --name doh-dev\n' "$(ssh_target dev)"
   fi
+
+  notify_provisioning_success "$ip"
 }
 
 connect_router() {

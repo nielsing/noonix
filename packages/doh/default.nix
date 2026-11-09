@@ -8,9 +8,9 @@
   gnused,
   iproute2,
   jq,
+  libnotify,
   nftables,
   openssh,
-  sudo,
   util-linux,
   wireguard-tools,
 }:
@@ -25,9 +25,9 @@ writeShellApplication {
     gnused
     iproute2
     jq
+    libnotify
     nftables
     openssh
-    sudo
     util-linux
     wireguard-tools
   ];
