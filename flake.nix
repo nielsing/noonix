@@ -22,6 +22,8 @@
     nixos-hardware,
     ...
   } @ inputs: {
+    packages.x86_64-linux.doh = nixpkgs.legacyPackages.x86_64-linux.callPackage ./packages/doh {};
+
     nixosConfigurations = {
       noonix = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};

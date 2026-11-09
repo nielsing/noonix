@@ -1,0 +1,86 @@
+#cloud-config
+
+package_update: true
+package_upgrade: false
+
+packages:
+  - bat
+  - build-essential
+  - ca-certificates
+  - curl
+  - direnv
+  - fd-find
+  - fzf
+  - git
+  - jq
+  - neovim
+  - ripgrep
+  - shellcheck
+  - tmux
+  - unzip
+  - zip
+  - zsh
+
+users:
+  - default
+  - name: __DOH_USER__
+    gecos: Ephemeral development user
+    groups:
+      - sudo
+    shell: /bin/bash
+    lock_passwd: true
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - >-
+          __DOH_SSH_PUBLIC_KEY__
+
+ssh_pwauth: false
+disable_root: true
+
+write_files:
+  - path: /usr/local/sbin/doh-install-development-tools
+    owner: root:root
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      set -o errexit
+      set -o nounset
+      set -o pipefail
+
+      user="__DOH_USER__"
+      home="/home/$user"
+
+      install -d -m 0755 -o "$user" -g "$user" "$home/src"
+      ln -sfn /usr/bin/batcat /usr/local/bin/bat
+      ln -sfn /usr/bin/fdfind /usr/local/bin/fd
+
+      starship_installer=$(mktemp)
+      curl -fsSL https://starship.rs/install.sh -o "$starship_installer"
+      sh "$starship_installer" --yes --bin-dir /usr/local/bin
+      rm -f "$starship_installer"
+
+      herdr_installer=$(mktemp)
+      curl -fsSL https://herdr.dev/install.sh -o "$herdr_installer"
+      sudo -u "$user" env HOME="$home" sh "$herdr_installer"
+      rm -f "$herdr_installer"
+
+      core_installer=$(mktemp)
+      curl -fsSL https://releases.herdr.dev/core/install.sh -o "$core_installer"
+      sudo -u "$user" env HOME="$home" sh "$core_installer"
+      rm -f "$core_installer"
+
+      for binary in herdr hc; do
+        if [[ -x "$home/.local/bin/$binary" ]]; then
+          ln -sfn "$home/.local/bin/$binary" "/usr/local/bin/$binary"
+        fi
+      done
+
+      if ! grep -qxF 'eval "$(starship init bash)"' "$home/.bashrc"; then
+        printf '\n%s\n' 'eval "$(starship init bash)"' >>"$home/.bashrc"
+      fi
+      chown "$user:$user" "$home/.bashrc"
+
+runcmd:
+  - /usr/local/sbin/doh-install-development-tools
+
+final_message: "doh development Droplet is ready after $UPTIME seconds"
