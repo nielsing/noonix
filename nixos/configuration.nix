@@ -18,6 +18,7 @@ in {
     ./hyprland.nix
     ./networking.nix
     ./nix.nix
+    ./restic.nix
     ./timezone.nix
     ./users.nix
 

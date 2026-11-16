@@ -6,6 +6,7 @@
     ./fd
     ./fzf
     ./git
+    ./herdr
     ./hypr
     ./hyprlock
     ./k9s
