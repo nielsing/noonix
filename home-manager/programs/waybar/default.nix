@@ -86,8 +86,8 @@
 
       #window {
           margin: 8px;
-          padding-left: 8;
-          padding-right: 8;
+          padding-left: 8px;
+          padding-right: 8px;
       }
 
       button {
